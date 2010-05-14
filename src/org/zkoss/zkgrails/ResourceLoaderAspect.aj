@@ -9,8 +9,8 @@ import org.zkoss.util.resource.Loader;
 
 public privileged aspect ResourceLoaderAspect {
 
-	private static Class<?> RESOURCE_LOADER_CLASS = null;
-	public static void PageDefinitions.setResourceLoaderClass(Class<?> c) {
+	private static Class RESOURCE_LOADER_CLASS = null;
+	public static void PageDefinitions.setResourceLoaderClass(Class c) {
 		RESOURCE_LOADER_CLASS = c;
 	}
 		
@@ -24,11 +24,11 @@ public privileged aspect ResourceLoaderAspect {
 			synchronized (PageDefinitions.class) {
 				cache = (ResourceCache)wapp.getAttribute(PageDefinitions.ATTR_PAGE_CACHE);
 				if (cache == null) {
-					Class<?> rlClass = RESOURCE_LOADER_CLASS;
+					Class rlClass = RESOURCE_LOADER_CLASS;
 					Loader rLoader = new PageDefinitions.MyLoader(wapp);
 					if(rlClass != null) {
 						try {
-							Constructor<?> ctor;
+							Constructor ctor;
 							ctor = rlClass.getDeclaredConstructor(new Class[]{WebApp.class});
 							rLoader = (Loader)ctor.newInstance(new Object[]{wapp});
 						} catch (Throwable e) { /* do nothing */ }							

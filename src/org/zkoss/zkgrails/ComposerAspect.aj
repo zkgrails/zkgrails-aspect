@@ -8,8 +8,8 @@ import org.zkoss.zk.ui.util.Composer;
 
 public privileged aspect ComposerAspect {
 	
-	private static Class<?> composerResolver = null;
-	public static void ComponentInfo.setComposerResolver(Class<?> c) {
+	private static Class composerResolver = null;
+	public static void ComponentInfo.setComposerResolver(Class c) {
 		composerResolver = c;
 	}
 	
