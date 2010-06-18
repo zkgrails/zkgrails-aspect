@@ -1,0 +1,20 @@
+apply from: '../gradleplugins/aspectjPlugin/aspectJ.gradle'
+
+repositories {
+    mavenCentral()
+    mavenRepo urls: 'http://mavensync.zkoss.org/maven2'
+}
+
+outjar = "./dist/zk.jar"
+
+dependencies{
+    ajc "org.aspectj:aspectjtools:1.6.8"
+
+    ajInpath files("./injar/zk.jar")
+
+    compile "org.aspectj:aspectjrt:1.6.8"
+    // compile "org.zkoss.zk:zk:5.0.2"
+    compile fileTree(dir: 'injar', include: '*.jar')
+
+    testCompile "junit:junit:4.7"
+}
