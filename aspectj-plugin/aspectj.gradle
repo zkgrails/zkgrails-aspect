@@ -1,0 +1,84 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+
+configurations {
+    ajc
+    aspects
+    ajInpath
+}
+
+configurations.ajInpath.transitive = false
+
+task compileJava(dependsOn: JavaPlugin.PROCESS_RESOURCES_TASK_NAME, overwrite: true) << {
+    ant.taskdef( resource:"org/aspectj/tools/ant/taskdefs/aspectjTaskdefs.properties", classpath: configurations.ajc.asPath)
+    ant.iajc(source:sourceCompatibility, 
+             target:targetCompatibility,
+             maxmem:"512m", fork:"true",
+             aspectpath: sourceSets.main.classesDir.absolutePath,
+             classpath:  configurations.compile.asPath,
+             inpath:     configurations.ajInpath.asPath,
+             outjar:     outjar,
+             Xlint:      "warning"){
+        sourceroots {
+            sourceSets.main.java.srcDirs.each{
+                pathelement(location:it.absolutePath)
+            }
+        }
+    }
+}
+
+//add aspectj support for eclipse plugin
+eclipseCp.doLast {
+    def classpathFile = project.file(eclipseCp.CLASSPATH_FILE_NAME)
+    def root = new XmlSlurper().parse(classpathFile)
+
+
+    configurations.aspects.files.each{ aspectsLib ->
+        println aspectsLib.absolutePath
+        def entries = root.classpathentry.find{ it.@path == aspectsLib.absolutePath }
+        entries.replaceNode{ node ->
+            classpathentry(kind:'lib', path:aspectsLib.absolutePath){
+                attributes{
+                    attribute(name:"org.eclipse.ajdt.aspectpath", value:"org.eclipse.ajdt.aspectpath")
+                }
+            }
+        }
+    }
+
+    def outputBuilder = new groovy.xml.StreamingMarkupBuilder()
+    String result = outputBuilder.bind{ mkp.yield root }
+
+    //use workaround to have pretty printed file
+    /*def outputWriter = classpathFile.newPrintWriter()
+    outputWriter.print(result)
+    outputWriter.close()
+    */
+
+    def reader = new org.dom4j.io.SAXReader()
+    def doc = reader.read(new StringReader(result))
+    def writer = new org.dom4j.io.XMLWriter(classpathFile.newWriter(), org.dom4j.io.OutputFormat.createPrettyPrint())
+    writer.write(doc)
+    writer.close()
+}
+
+
+eclipseProject.doLast {
+    def projectFile = project.file(eclipseProject.PROJECT_FILE_NAME)
+
+    def reader = new org.dom4j.io.SAXReader()
+    def doc = reader.read(projectFile)
+    def builders = doc.selectSingleNode('/projectDescription/buildSpec')
+    def buildCommandElement = builders.addElement('buildCommand')
+    buildCommandElement.addElement('name').addText('org.eclipse.ajdt.core.ajbuilder')
+    buildCommandElement.addElement('arguments')
+
+
+    def natures = doc.selectSingleNode('/projectDescription/natures')
+    natures.addElement('nature').addText('org.eclipse.ajdt.ui.ajnature')
+    // Eclipse pulls the decoration from the first nature. Make groovy be first.
+    natures.setContent(natures.content().reverse())
+
+    def writer = new org.dom4j.io.XMLWriter(projectFile.newWriter(), org.dom4j.io.OutputFormat.createPrettyPrint())
+    writer.write(doc)
+    writer.close()
+}
