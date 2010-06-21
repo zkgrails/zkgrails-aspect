@@ -2,3 +2,6 @@ output/
 .classpath
 .project
 .settings/
+.gradle
+injar
+dist
