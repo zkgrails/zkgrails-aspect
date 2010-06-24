@@ -5,16 +5,17 @@ repositories {
     mavenRepo urls: 'http://mavensync.zkoss.org/maven2'
 }
 
+// zkFilename = "zk-bin-5.0.3-FL-2010-06-24"
+zkFilename = System.properties['zkFilename']
 outjar = "./dist/zk.jar"
 
 dependencies{
     ajc "org.aspectj:aspectjtools:1.6.8"
-
-    ajInpath files("./injar/zk.jar")
+    ajInpath files("injar/$zkFilename/dist/lib/zk.jar")
 
     compile "org.aspectj:aspectjrt:1.6.8"
     // compile "org.zkoss.zk:zk:5.0.2"
-    compile fileTree(dir: 'injar', include: '*.jar')
+    compile fileTree(dir: "injar/$zkFilename/dist/lib", include: '*.jar')
 
     testCompile "junit:junit:4.7"
 }
