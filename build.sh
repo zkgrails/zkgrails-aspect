@@ -1,4 +1,4 @@
-FILE=5.0.3-FL-2010-06-24
+FILE=5.0.3-FL-2010-06-26
 wget http://downloads.sourceforge.net/project/zk1/ZK%20Freshly/zk-$FILE/zk-bin-$FILE.zip -c
 rm dist/zk.jar
 cd injar/.
