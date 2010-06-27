@@ -4,5 +4,5 @@ rm dist/zk.jar
 cd injar/.
 rm -Rf zk-bin-*
 cd ..
-unzip zk-bin-$FILE.zip zk-bin-$FILE/dist/*.jar -d injar/.
+unzip zk-bin-$FILE.zip zk-bin-$FILE/dist/lib/z*.jar -d injar/.
 gradle -DzkFilename=zk-bin-$FILE clean compileJava

@@ -10,8 +10,8 @@ import org.zkoss.zk.ui.util.GenericAutowireComposer;
 public privileged aspect SkipZScriptAspect {
 
     public void GenericAutowireComposer.skipZscriptWiring() {
-        this._ignoreZScript = false;
-        this._ignoreXel = false;
+        this._ignoreZScript = true;
+        this._ignoreXel = true;
     }
 
 }
