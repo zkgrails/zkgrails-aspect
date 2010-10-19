@@ -28,7 +28,7 @@ task compileJava(dependsOn: JavaPlugin.PROCESS_RESOURCES_TASK_NAME, overwrite: t
 }
 
 //add aspectj support for eclipse plugin
-eclipseCp.doLast {
+eclipseClasspath.doLast {
     def classpathFile = project.file(eclipseCp.CLASSPATH_FILE_NAME)
     def root = new XmlSlurper().parse(classpathFile)
 
