@@ -1,4 +1,4 @@
-FILE=5.0.5-FL-2010-10-19
+FILE=5.0.5-FL-2010-10-20
 wget http://downloads.sourceforge.net/project/zk1/ZK%20Freshly/zk-$FILE/zk-bin-$FILE.zip -c
 mkdir dist
 mkdir injar
