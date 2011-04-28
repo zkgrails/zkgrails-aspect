@@ -18,7 +18,7 @@ public privileged aspect SugarAspect {
         }
     }
 
-    public void Grid.setRowRenderer(final Closure c) {
+    public void Grid.withRowRenderer(Closure c) {
         this.setRowRenderer(new SugarAspect.InternalRowRenderer(c));
     }
 
