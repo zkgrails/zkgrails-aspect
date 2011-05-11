@@ -5,4 +5,5 @@ output/
 .gradle
 injar
 dist
-zk-bin*.zip
+zk-*.zip
+zkee-*.zip
