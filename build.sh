@@ -1,6 +1,6 @@
-FILE=5.0.6
+FILE=5.0.7
 ## wget http://downloads.sourceforge.net/project/zk1/ZK%20Freshly/zk-$FILE/zk-bin-$FILE.zip -c
-# wget http://www.zkoss.org/download/freshly/zk-$FILE/zkee-bin-eval-$FILE.zip -c
+## wget http://www.zkoss.org/download/freshly/zk-$FILE/zkee-bin-eval-$FILE.zip -c
 mkdir dist
 mkdir injar
 rm dist/zk.jar
