@@ -24,11 +24,12 @@ zkFilename = System.properties['zkFilename']
 outjar = "../dist/zk.jar"
 
 dependencies{
-    ajc "org.aspectj:aspectjtools:1.6.8"
+    ajc "org.aspectj:aspectjtools:1.6.10"
     ajInpath files("../injar/$zkFilename/dist/lib/zk.jar")
 
-    compile "org.aspectj:aspectjrt:1.6.8"
+    compile "org.aspectj:aspectjrt:1.6.10"
     compile fileTree(dir: "../injar/$zkFilename/dist/lib", include: '*.jar')
+    runtime "org.aspectj:aspectjrt:1.6.10"
     deployerJars "com.google.code.maven-svn-wagon:maven-svn-wagon:1.4"
 }
 

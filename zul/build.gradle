@@ -24,13 +24,18 @@ zkFilename = System.properties['zkFilename']
 outjar = "../dist/zul.jar"
 
 dependencies{
-    ajc "org.aspectj:aspectjtools:1.6.8"
+    ajc "org.aspectj:aspectjtools:1.6.10"
     ajInpath files("../injar/$zkFilename/dist/lib/zul.jar")
 
-    compile "org.aspectj:aspectjrt:1.6.8"
+    compile "org.aspectj:aspectjrt:1.6.10"
     compile "org.zkoss.zk.grails:zk:$version"
     compile fileTree(dir: "../injar/$zkFilename/dist/lib", include: '*.jar', exclude: 'zk.jar')
-    compile "org.codehaus.groovy:groovy-all:1.7.8"
+    compile "org.codehaus.groovy:groovy-all:1.8.0"
+    
+    runtime "org.aspectj:aspectjrt:1.6.10"
+    runtime "org.zkoss.zk.grails:zk:$version"
+    runtime "org.codehaus.groovy:groovy-all:1.8.0"
+
     deployerJars "com.google.code.maven-svn-wagon:maven-svn-wagon:1.4"
 }
 
