@@ -1,7 +1,7 @@
 apply plugin: 'maven'
 apply from: '../aspectj-plugin/aspectj.gradle'
 
-version = "5.0.7.1"
+version = System.properties['zkVersion']
 group = "org.zkoss.zk.grails"
 
 configurations {
@@ -25,11 +25,11 @@ outjar = "../dist/zul.jar"
 
 dependencies{
     ajc "org.aspectj:aspectjtools:1.6.10"
-    ajInpath files("../injar/$zkFilename/dist/lib/zul.jar")
+    ajInpath files("../injar/zul-${project.version}.jar")
 
     compile "org.aspectj:aspectjrt:1.6.10"
     compile "org.zkoss.zk.grails:zk:$version"
-    compile fileTree(dir: "../injar/$zkFilename/dist/lib", include: '*.jar', exclude: 'zk.jar')
+    // compile fileTree(dir: "../injar/$zkFilename/dist/lib", include: '*.jar', exclude: 'zk.jar')
     compile "org.codehaus.groovy:groovy-all:1.8.0"
     
     runtime "org.aspectj:aspectjrt:1.6.10"
