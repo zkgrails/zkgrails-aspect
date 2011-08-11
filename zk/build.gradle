@@ -1,6 +1,8 @@
 apply plugin: 'maven'
 apply from: '../aspectj-plugin/aspectj.gradle'
 
+aspectjVersion = "1.6.10"
+groovyVersion  = "1.8.0"
 version = System.properties['zkVersion']
 group = "org.zkoss.zk.grails"
 
@@ -24,17 +26,17 @@ zkFilename = System.properties['zkFilename']
 outjar = "../dist/zk.jar"
 
 dependencies{
-    ajc "org.aspectj:aspectjtools:1.6.10"
+    ajc "org.aspectj:aspectjtools:${aspectjVersion}"
     ajInpath files("../injar/zk-${project.version}.jar")
 
-    compile "org.aspectj:aspectjrt:1.6.10"
-    // compile "org.zkoss.zk:zcommo"
-    runtime "org.aspectj:aspectjrt:1.6.10"
+    compile "org.aspectj:aspectjrt:${aspectjVersion}"
+
+    runtime "org.aspectj:aspectjrt:${aspectjVersion}"
     deployerJars "com.google.code.maven-svn-wagon:maven-svn-wagon:1.4"
 }
 
 uploadArchives.doFirst {
-    copy { 
+    copy {
       from "../dist/"
       into "build/libs/"
       rename "zk.jar", "zk-${project.version}.jar"
@@ -47,7 +49,7 @@ uploadArchives {
         def password = System.properties['google.code.password']
         repository(url: "http://203.158.7.11:8081/artifactory/libs-release-local") {
             org.apache.ivy.util.url.CredentialsStore.INSTANCE.addCredentials("Artifactory Realm", "203.158.7.11", username, password)
-            authentication(userName: username, password: password) 
+            authentication(userName: username, password: password)
         }
         repository(url: "svn:https://zkgrails.googlecode.com/svn/repo") {
             configuration = configurations.deployerJars
