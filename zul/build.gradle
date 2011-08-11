@@ -1,0 +1,49 @@
+apply plugin: 'maven'
+apply from: '../aspectj-plugin/aspectj.gradle'
+
+version = "5.0.7.1"
+group = "org.zkoss.zk.grails"
+
+repositories {
+    mavenRepo urls: 'http://203.158.7.11/artifactory/repo'
+}
+
+sourceSets {
+    main {
+        java {
+            srcDir '../src/main/java-zul'
+        }
+    }
+}
+
+zkFilename = System.properties['zkFilename']
+outjar = "../dist/zul.jar"
+
+dependencies{
+    ajc "org.aspectj:aspectjtools:1.6.8"
+    ajInpath files("../injar/$zkFilename/dist/lib/zul.jar")
+
+    compile "org.aspectj:aspectjrt:1.6.8"
+    compile "org.zkoss.zk.grails:zk:$version"
+    compile fileTree(dir: "../injar/$zkFilename/dist/lib", include: '*.jar', exclude: 'zk.jar')
+    compile "org.codehaus.groovy:groovy-all:1.7.8"
+
+}
+uploadArchives.doFirst {
+    copy { 
+      from "../dist/"
+      into "build/libs/"
+      rename "zul.jar", "zul-${project.version}.jar"
+    }
+}
+
+uploadArchives {
+    repositories.mavenDeployer {
+        repository(url: "http://203.158.7.11:8081/artifactory/libs-release-local") {
+            def username = System.properties['google.code.username']
+            def password = System.properties['google.code.password']
+            org.apache.ivy.util.url.CredentialsStore.INSTANCE.addCredentials("Artifactory Realm", "203.158.7.11", username, password)
+            authentication(userName: username, password: password) 
+        }
+    }
+}

@@ -18,6 +18,13 @@ rm -Rf zkee-bin-*
 cd ..
 unzip zkee-bin-eval-$FILE.zip zkee-bin-eval-$FILE/dist/lib/z*.jar -d injar/.
 
-./gradlew -b build-zk.gradle  -DzkFilename=zkee-bin-eval-$FILE clean compileJava
-./gradlew -b build-zul.gradle -DzkFilename=zkee-bin-eval-$FILE clean compileJava
+cd zk
+mkdir -p src/main/java
+../gradlew -Dgoogle.code.username=$GOOGLE_CODE_ACC -Dgoogle.code.password=$GOOGLE_CODE_PWD -DzkFilename=zkee-bin-eval-$FILE clean uploadArchives
+cd ..
+
+cd zul
+mkdir -p src/main/java
+../gradlew -Dgoogle.code.username=$GOOGLE_CODE_ACC -Dgoogle.code.password=$GOOGLE_CODE_PWD -DzkFilename=zkee-bin-eval-$FILE clean uploadArchives
+cd ..
 

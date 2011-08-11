@@ -8,4 +8,7 @@ dist
 zk-bin*.zip
 zkee-bin*.zip
 *.swp
+build
+zk/build
+zul/build
 

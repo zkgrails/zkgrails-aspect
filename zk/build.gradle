@@ -1,0 +1,59 @@
+apply plugin: 'maven'
+apply from: '../aspectj-plugin/aspectj.gradle'
+
+version = "5.0.7.1"
+group = "org.zkoss.zk.grails"
+
+configurations {
+    deployerJars
+}
+
+repositories {
+    mavenRepo urls: 'http://203.158.7.11/artifactory/repo'
+}
+
+sourceSets {
+    main {
+        java {
+            srcDir '../src/main/java-zk'
+        }
+    }
+}
+
+zkFilename = System.properties['zkFilename']
+outjar = "../dist/zk.jar"
+
+dependencies{
+    ajc "org.aspectj:aspectjtools:1.6.8"
+    ajInpath files("../injar/$zkFilename/dist/lib/zk.jar")
+
+    compile "org.aspectj:aspectjrt:1.6.8"
+    compile fileTree(dir: "../injar/$zkFilename/dist/lib", include: '*.jar')
+    deployerJars "com.google.code.maven-svn-wagon:maven-svn-wagon:1.4"
+
+}
+uploadArchives.doFirst {
+    copy { 
+      from "../dist/"
+      into "build/libs/"
+      rename "zk.jar", "zk-${project.version}.jar"
+    }
+}
+
+uploadArchives {
+    repositories.mavenDeployer {
+        repository(url: "http://203.158.7.11:8081/artifactory/libs-release-local") {
+            def username = System.properties['google.code.username']
+            def password = System.properties['google.code.password']
+            org.apache.ivy.util.url.CredentialsStore.INSTANCE.addCredentials("Artifactory Realm", "203.158.7.11", username, password)
+            authentication(userName: username, password: password) 
+        }
+        repository(url: "svn:https://zkgrails.googlecode.com/svn/repo") {
+            configuration = configurations.deployerJars
+            def username = System.properties['google.code.username']
+            def password = System.properties['google.code.password']
+            org.apache.ivy.util.url.CredentialsStore.INSTANCE.addCredentials("Google Code Subversion Repository","zkgrails.googlecode.com",username,password)
+            authentication(userName: username, password: password)
+        }
+    }
+}
