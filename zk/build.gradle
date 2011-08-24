@@ -28,8 +28,9 @@ dependencies{
     ajInpath files("../injar/zk-${project.version}.jar")
 
     compile "org.aspectj:aspectjrt:1.6.10"
-    // compile "org.zkoss.zk:zcommo"
+    
     runtime "org.aspectj:aspectjrt:1.6.10"
+    runtime "org.zkoss.common:zweb:${project.version}"
     deployerJars "com.google.code.maven-svn-wagon:maven-svn-wagon:1.4"
 }
 

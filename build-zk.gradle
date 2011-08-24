@@ -33,6 +33,7 @@ dependencies{
 
     compile "org.aspectj:aspectjrt:1.6.8"
     compile fileTree(dir: "injar/$zkFilename/dist/lib", include: '*.jar')
+    compile "org.zkoss.common:zweb:${project.version}"
 
     testCompile "junit:junit:4.7"
 }
