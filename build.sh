@@ -1,4 +1,4 @@
-FILE=5.0.7.1
+FILE=5.0.9
 ## wget http://downloads.sourceforge.net/project/zk1/ZK%20Freshly/zk-$FILE/zk-bin-$FILE.zip -c
 ## wget http://www.zkoss.org/download/freshly/zk-$FILE/zkee-bin-eval-$FILE.zip -c
 mkdir dist
