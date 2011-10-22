@@ -7,14 +7,15 @@ import org.zkoss.zkplus.databind.Binding;
 
 public privileged aspect BindingAspect {
 
-    pointcut callCoerceTo(Object val, Component comp, Binding binding):
+    pointcut callCoerceTo(Object val, Component comp):
     (
      call(public Object TypeConverter.coerceToUI(Object, Component)) ||
      call(public Object TypeConverter.coerceToBean(Object, Component))
     )
-    && args(val, comp) && this(binding);
+    && args(val, comp) && this(Binding);
 
-    Object around(Object val, Component comp, Binding binding): callCoerceTo(val, comp, binding) {
+    Object around(Object val, Component comp): callCoerceTo(val, comp) {
+        Binding binding = (Binding)(thisJoinPoint.getThis());
         comp.setAttribute("zkgrails.current.binding.attr", binding._attr);
         Object result = proceed(val, comp);
         comp.removeAttribute("zkgrails.current.binding.attr");
