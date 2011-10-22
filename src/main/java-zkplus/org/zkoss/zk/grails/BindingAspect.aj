@@ -7,6 +7,7 @@ import org.zkoss.zk.ui.metainfo.ComponentInfo;
 import org.zkoss.zk.ui.util.Composer;
 
 import org.zkoss.zkplus.databind.TypeConverter;
+import org.zkoss.zkplus.databind.Binding;
 
 public privileged aspect BindingAspect {
 
