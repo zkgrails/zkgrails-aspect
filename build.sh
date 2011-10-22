@@ -20,11 +20,6 @@ rm dist/zk.jar
 rm dist/zul.jar
 rm dist/zkplus.jar
 
-# cd injar/.
-# rm -Rf zkee-bin-*
-# cd ..
-# unzip zkee-bin-eval-$FILE.zip zkee-bin-eval-$FILE/dist/lib/z*.jar -d injar/.
-
 cd zk
 mkdir -p src/main/java
 ../gradlew -Dgoogle.code.username=$GOOGLE_CODE_ACC -Dgoogle.code.password=$GOOGLE_CODE_PWD -DzkVersion=$VER clean uploadArchives

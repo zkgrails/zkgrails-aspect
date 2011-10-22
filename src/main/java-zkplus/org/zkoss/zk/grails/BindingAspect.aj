@@ -12,13 +12,14 @@ public privileged aspect BindingAspect {
      call(public Object TypeConverter.coerceToUI(Object, Component)) ||
      call(public Object TypeConverter.coerceToBean(Object, Component))
     )
-    && args(val, comp) && this(Binding);
+    && args(val, comp);
 
-    Object around(Object val, Component comp): callCoerceTo(val, comp) {
-        Binding binding = (Binding)(thisJoinPoint.getThis());
+    before(Object val, Component comp, Binding binding): callCoerceTo(val, comp) && this(binding) {
         comp.setAttribute("zkgrails.current.binding.attr", binding._attr);
-        Object result = proceed(val, comp);
-        comp.removeAttribute("zkgrails.current.binding.attr");
-        return result;
     }
+
+    after(Object val, Component comp, Binding binding): callCoerceTo(val, comp) && this(binding) {
+        comp.removeAttribute("zkgrails.current.binding.attr");
+    }
+
 }

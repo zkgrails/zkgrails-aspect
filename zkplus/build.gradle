@@ -31,10 +31,12 @@ dependencies{
 
     compile "org.aspectj:aspectjrt:${aspectjVersion}"
     compile "org.zkoss.zk.grails:zk:${project.version}"
+    compile "org.zkoss.zk.grails:zul:${project.version}"
     compile "org.codehaus.groovy:groovy-all:${groovyVersion}"
 
     runtime "org.aspectj:aspectjrt:${aspectjVersion}"
     runtime "org.zkoss.zk.grails:zk:${project.version}"
+    compile "org.zkoss.zk.grails:zul:${project.version}"
     runtime "org.codehaus.groovy:groovy-all:${groovyVersion}"
 
     deployerJars "com.google.code.maven-svn-wagon:maven-svn-wagon:1.4"
