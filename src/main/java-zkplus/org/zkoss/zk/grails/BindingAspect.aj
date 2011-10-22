@@ -9,7 +9,7 @@ public privileged aspect BindingAspect {
 
     pointcut callCoerceTo(Object val, Component comp):
     (
-     call(public Object TypeConverter.coerceToUI(Object, Component)) ||
+     call(public Object TypeConverter.coerceToUi(Object, Component)) ||
      call(public Object TypeConverter.coerceToBean(Object, Component))
     )
     && args(val, comp);
