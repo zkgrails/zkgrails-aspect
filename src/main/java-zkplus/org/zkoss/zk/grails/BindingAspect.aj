@@ -15,11 +15,11 @@ public privileged aspect BindingAspect {
     && args(val, comp);
 
     before(Object val, Component comp, Binding binding): callCoerceTo(val, comp) && this(binding) {
-        comp.setAttribute("zkgrails.current.binding.attr", binding._attr);
+        comp.setAttribute("zkgrails.current.binding.expr", binding.getExpression());
     }
 
     after(Object val, Component comp, Binding binding): callCoerceTo(val, comp) && this(binding) {
-        comp.removeAttribute("zkgrails.current.binding.attr");
+        comp.removeAttribute("zkgrails.current.binding.expr");
     }
 
 }
