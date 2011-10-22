@@ -1,10 +1,6 @@
 package org.zkoss.zk.grails;
 
-import java.lang.reflect.Method;
-
-import org.zkoss.zk.ui.Page;
-import org.zkoss.zk.ui.metainfo.ComponentInfo;
-import org.zkoss.zk.ui.util.Composer;
+import org.zkoss.zk.ui.Component;
 
 import org.zkoss.zkplus.databind.TypeConverter;
 import org.zkoss.zkplus.databind.Binding;
