@@ -17,25 +17,23 @@ repositories {
 sourceSets {
     main {
         java {
-            srcDir '../src/main/java-zul'
+            srcDir '../src/main/java-zhtml'
         }
     }
 }
 
 zkFilename = System.properties['zkFilename']
-outjar = "../dist/zul.jar"
+outjar = "../dist/zhtml.jar"
 
 dependencies{
     ajc "org.aspectj:aspectjtools:${aspectjVersion}"
-    ajInpath files("../injar/zul-${project.version}.jar")
+    ajInpath files("../injar/zhtml-${project.version}.jar")
 
     compile "org.aspectj:aspectjrt:${aspectjVersion}"
-    compile "org.zkoss.zk.grails:zk:${project.version}"
-    compile "org.codehaus.groovy:groovy-all:${groovyVersion}"
+    compile "org.zkoss.zk.grails:zul:${project.version}"
 
     runtime "org.aspectj:aspectjrt:${aspectjVersion}"
-    runtime "org.zkoss.zk.grails:zk:${project.version}"
-    runtime "org.codehaus.groovy:groovy-all:${groovyVersion}"
+    runtime "org.zkoss.common:zweb:${project.version}"
 
     deployerJars "com.google.code.maven-svn-wagon:maven-svn-wagon:1.4"
 }
@@ -44,7 +42,7 @@ uploadArchives.doFirst {
     copy {
       from "../dist/"
       into "build/libs/"
-      rename "zul.jar", "zul-${project.version}.jar"
+      rename "zhtml.jar", "zhtml-${project.version}.jar"
     }
 }
 

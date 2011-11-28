@@ -2,7 +2,7 @@ apply plugin: 'maven'
 apply from: '../aspectj-plugin/aspectj.gradle'
 
 aspectjVersion = "1.6.10"
-groovyVersion  = "1.8.0"
+groovyVersion  = "1.8.4"
 version = System.properties['zkVersion']
 group = "org.zkoss.zk.grails"
 
