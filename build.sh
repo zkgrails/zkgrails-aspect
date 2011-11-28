@@ -1,4 +1,11 @@
 VER=$1
+TARGET=$2
+if test -z "$2"
+then
+  TARGET='uploadArchives'
+else
+  TARGET=$2
+fi
 
 rm -Rf injar
 mkdir injar
@@ -7,6 +14,7 @@ wget http://203.158.7.11/artifactory/repo/org/zkoss/zk/zk/$VER/zk-$VER.jar
 wget http://203.158.7.11/artifactory/repo/org/zkoss/zk/zul/$VER/zul-$VER.jar
 wget http://203.158.7.11/artifactory/repo/org/zkoss/zk/zkplus/$VER/zkplus-$VER.jar
 wget http://203.158.7.11/artifactory/repo/org/zkoss/zk/zhtml/$VER/zhtml-$VER.jar
+wget http://203.158.7.11/artifactory/repo/org/zkoss/common/zweb/$VER/zweb-$VER.jar
 cd ..
 
 #
@@ -21,23 +29,12 @@ rm dist/zk.jar
 rm dist/zul.jar
 rm dist/zkplus.jar
 rm dist/zhtml.jar
+rm dist/zweb.jar
 
-cd zk
-mkdir -p src/main/java
-../gradlew -Dgoogle.code.username=$GOOGLE_CODE_ACC -Dgoogle.code.password=$GOOGLE_CODE_PWD -DzkVersion=$VER clean uploadArchives
-cd ..
-
-cd zul
-mkdir -p src/main/java
-../gradlew -Dgoogle.code.username=$GOOGLE_CODE_ACC -Dgoogle.code.password=$GOOGLE_CODE_PWD -DzkVersion=$VER clean uploadArchives
-cd ..
-
-cd zkplus
-mkdir -p src/main/java
-../gradlew -Dgoogle.code.username=$GOOGLE_CODE_ACC -Dgoogle.code.password=$GOOGLE_CODE_PWD -DzkVersion=$VER clean uploadArchives
-cd ..
-
-cd zhtml
-mkdir -p src/main/java
-../gradlew -Dgoogle.code.username=$GOOGLE_CODE_ACC -Dgoogle.code.password=$GOOGLE_CODE_PWD -DzkVersion=$VER clean uploadArchives
-cd ..
+for x in zk zul zkplus zhtml zweb
+do
+    cd $x
+    mkdir -p src/main/java
+    ../gradlew -Dgoogle.code.username=$GOOGLE_CODE_ACC -Dgoogle.code.password=$GOOGLE_CODE_PWD -DzkVersion=$VER clean $TARGET
+    cd ..   
+done
