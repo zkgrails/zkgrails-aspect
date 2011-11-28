@@ -31,7 +31,7 @@ rm dist/zkplus.jar
 rm dist/zhtml.jar
 rm dist/zweb.jar
 
-for x in zk zul zkplus zhtml zweb
+for x in zweb zk zul zkplus zhtml
 do
     cd $x
     mkdir -p src/main/java

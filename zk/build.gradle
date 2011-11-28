@@ -32,7 +32,7 @@ dependencies{
     compile "org.aspectj:aspectjrt:${aspectjVersion}"
 
     runtime "org.aspectj:aspectjrt:${aspectjVersion}"
-    runtime "org.zkoss.common:zweb:${project.version}"
+    runtime "org.zkoss.zk.grails:zweb:${project.version}"
 
     deployerJars "com.google.code.maven-svn-wagon:maven-svn-wagon:1.4"
 }
